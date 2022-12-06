@@ -1,0 +1,26 @@
+**Introduction**
+
+The goal of this project is to teach the concept of working with data stored in files and NoSQL databases. This is done by building and operating on a document store, using MongoDB. Your job in this project is to write programs that store data in MongoDB and provide basic functions for searches and updates. 80% of the project mark would be assigned to your implementation, which would be assessed in a demo session, and is further broken down to two phases with 7% of the mark allocated for Phase 1 and 73% for Phase 2. Another 15% of the mark will be assigned for the documentation and quality of your source code and for your design document. 5% of the mark is assigned for your project task break-down and your group coordination.
+
+**Task**
+
+You are given a json file, which you will be loading into MongoDB. Samples of the file are available at google drive (use your ualberta account to access the files). The data is obtained from Aminer and includes information about publications. Each record describes a publication and has fields such title, authors, abstract, year, venue and references. The authors and references fields are of type array whereas other fields are mostly strings and numbers. More information about the file, its fields as well as larger files are available at the Aminer link. Your job is to create a MongoDB collection, following Phase 1, and support searches and updates in Phases 2.
+
+**Phase 1: Building a document store**
+
+For this part, you will write a program, named load-json with a proper extension (e.g. load-json.py if using Python), which will take a json file in the current directory and constructs a MongoDB collection. Your program will take as input a json file name and a port number under which the MongoDB server is running, will connect to the server and will create a database named 291db (if it does not exist). Your program then will create a collection named dblp. If the collection exists, your program should drop it and create a new collection. Your program for this phase ends after building the collection.
+
+Important Note: The input file is expected to be too large to fit in memory and you are expected to process it as one-row-at-a time, and not to fully load the file into memory. You may find Mongoimport helpful, and you may change the default batch size (if needed) to allow loading large files on lab machines.
+
+**Phase 2: Operating on the document store**
+
+Write a program that supports the following operations on the MongoDB database created in Phase 1. Your program will take as input a port number under which the MongoDB server is running, and will connect to a database named 291db on the server.
+
+Next, users should be able to perform the following tasks.
+
+   1. **Search for articles** The user should be able to provide one or more keywords, and the system should retrieve all articles that match all those keywords (AND semantics). A keyword matches if it appears in any of title, authors, abstract, venue and year fields (the matches should be case-insensitive). For each matching article, display the id, the title, the year and the venue fields. The user should be able to select an article to see all fields including the abstract and the authors in addition to the fields shown before. If the article is referenced by other articles, the id, the title, and the year of those references should be also listed.Search for articles The user should be able to provide one or more keywords, and the system should retrieve all articles that match all those keywords (AND semantics). A keyword matches if it appears in any of title, authors, abstract, venue and year fields (the matches should be case-insensitive). For each matching article, display the id, the title, the year and the venue fields. The user should be able to select an article to see all fields including the abstract and the authors in addition to the fields shown before. If the article is referenced by other articles, the id, the title, and the year of those references should be also listed.
+   2. **Search for authors** The user should be able to provide a keyword  and see all authors whose names contain the keyword (the matches should be case-insensitive). For each author, list the author name and the number of publications. The user should be able to select an author and see the title, year and venue of all articles by that author. The result should be sorted based on year with more recent articles shown first.
+   3. **List the venues** The user should be able to enter a number n and see a listing of top n venues. For each venue, list the venue, the number of articles in that venue, and the number of articles that reference a paper in that venue. Sort the result based on the number of papers that reference the venue with the top most cited venues shown first. 
+   4. **Add an article** The user should be able to add an article to the collection by providing a unique id, a title, a list of authors, and a year. The fields abstract and venue should be set to null, references should be set to an empty array and n_citations should be set to zero. 
+
+After each action, the user should be able to return to the main menu for further operations. There should be also an option to end the program.
